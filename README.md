@@ -23,3 +23,15 @@ Licence
     See the License for the specific language governing permissions and
     limitations under the License.
 
+
+Credits
+-------
+
+The TCEC GUI is based on the work by Ben Reese and Arun Sathyamurthy,
+forked from the [github.com/coolchess123/tceccutechess](https://github.com/coolchess123/tceccutechess)
+repository. The original software was provided with the
+[ISC](https://www.isc.org/licenses/) and
+[Apache 2.0](https://www.apache.org/licenses) licenses.
+
+The source code is currently maintained by the TCEC organization. You
+may reach us at the [TCEC Official discord](https://discord.gg/EYuyrDr) channel \#enginedev-lobby.
