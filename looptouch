@@ -1,8 +1,0 @@
-#!/bin/bash -f
-COUNTER=0
-while [  $COUNTER -lt 10 ]; do
-        echo The counter is $COUNTER
-        sleep 60
-        touch banner.txt
-done
-

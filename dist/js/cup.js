@@ -39,32 +39,33 @@ var roundDateMan = [
 
 var startDateR1 = '17:00:00 on 2019.01.21';
 var startDateR2 = 0;
-var roundNo = 2;
-var teamsx = 
- [
-  [["LCZero ", 1], ["Marvin ", 32]],
-  [["ChessBrainVB ", 16], ["Booot ", 17]],
-  [["Fire ", 8], ["Pedone ", 25]],
-  [["Xiphos ", 9], ["Gull ", 24]],
-  [["AllieStein ", 4], ["Wasp ", 29]],
-  [["Jonny ", 13], ["Nirvana ", 20]],
-  [["Houdini ", 5], ["RubiChess ", 28]],
-  [["Fizbo ", 12], ["Arasan ", 21]],
-  [["Stockfish ", 2], ["Rodent III ", 31]],
+var roundNo = 16;
+
+var teamsx =
+[
+  [["LCZero ", 1], ["Pirarucu ", 32]],
+  [["ChessBrainVB ", 16], ["Jonny ", 17]],
+  [["ScorpioNN ", 8], ["Texel ", 25]],
+  [["Ethereal ", 9], ["Nemorino ", 24]],
+  [["Komodo ", 4], ["Wasp ", 29]],
+  [["Andscacs ", 13], ["Pedone ", 20]],
+  [["Stoofvlees ", 5], ["RubiChess ", 28]],
+  [["Xiphos ", 12], ["Fire ", 21]],
+  [["Stockfish ", 2], ["chess22k ", 31]],
   [["Ginkgo ", 15], ["rofChade ", 18]],
-  [["Ethereal ", 7], ["Nemorino ", 26]],
-  [["Laser ", 10], ["Vajolet2 ", 23]],
-  [["Komodo ", 3], ["Winter ", 30]],
-  [["Chiron ", 14], ["Fritz ", 19]],
-  [["KomodoMCTS ", 6], ["pirarucu ", 27]],
-  [["Andscacs ", 11], ["Texel ", 22]]
- ];
+  [["KomodoMCTS ", 7], ["Vajolet2 ", 26]],
+  [["Laser ", 10], ["Fritz ", 23]],
+  [["AllieStein ", 3], ["Nirvana ", 30]],
+  [["Fizbo ", 14], ["Arasan ", 19]],
+  [["Houdini ", 6], ["Gull ", 27]],
+  [["Chiron ", 11], ["Booot ", 22]],
+];
 
 var bigData = {           
  teams : [            
  ],            
  results : [[ /* WINNER BRACKET */          
- [[0,0, "empty-bye"], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0, "arun"], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0]],
+ [[1,0, "empty-bye"], [1,0], [1,0], [1,0], [1,0], [1,0], [1,0], [1,0], [1,0, "arun"], [0,1], [1,0], [1,0], [1,0], [0,1], [1,0], [1,0]],
  [[0,0, "arun"], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0]],        
  [[0,0], [0,0], [0,0], [0,0]],          
  [[0,0], [0,0]],           
@@ -74,7 +75,7 @@ var bigData = {
  ]            
 }            
 
-var roundResults = []
+var roundResults = [];
 
 var dummyCross = 
 {

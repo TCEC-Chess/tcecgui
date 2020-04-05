@@ -1,1 +1,0 @@
-node server.js --cup 1 --port 8001 --id scup3fl

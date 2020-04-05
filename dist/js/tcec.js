@@ -6,6 +6,7 @@ pvBoardElwc = $('#pv-boardwc');
 pvBoardEla = $('#pv-boarda');
 pvBoardElac = $('#pv-boardac');
 
+var timezoneDiffH = -8;
 var squareToHighlight = '';
 var pvSquareToHighlight = '';
 var crossTableInitialized = false;
@@ -2004,8 +2005,7 @@ function getLinkArch()
 {
    var retLink;
 
-   retLink = "http://tcec.chessdom.com/archive.php";
-   retLink = "https://cd.tcecbeta.club/archive.html";
+   retLink = "http://www.tcec-chess.com/archive.html";
 
    return (retLink);
 }
@@ -2362,7 +2362,7 @@ function updateH2hData()
    var momentDate = 0;
    var diff = 0;
    var gameDiff = 0;
-   var timezoneDiff = moment().utcOffset() * 60 * 1000 - 3600 * 1000;
+   var timezoneDiff = moment().utcOffset() * 60 * 1000 + timezoneDiffH * 3600 * 1000;
    var h2hrank = 0;
    var schedEntry = {};
    var data = shallowCopy(oldSchedData);
@@ -2492,7 +2492,7 @@ function updateScheduleData(scdatainput)
    var momentDate = 0;
    var diff = 0;
    var gameDiff = 0;
-   var timezoneDiff = moment().utcOffset() * 60 * 1000 - 3600 * 1000;
+   var timezoneDiff = moment().utcOffset() * 60 * 1000 + timezoneDiffH * 3600 * 1000;
    var schedEntry = {};
    oldSchedData = shallowCopy(scdatainput);
    var data = shallowCopy(scdatainput);
@@ -2587,7 +2587,7 @@ function updateWinnersData(winnerData)
    var momentDate = 0;
    var diff = 0;
    var gameDiff = 0;
-   var timezoneDiff = moment().utcOffset() * 60 * 1000 - 3600 * 1000;
+   var timezoneDiff = moment().utcOffset() * 60 * 1000 + timezoneDiffH * 3600 * 1000;
    var schedEntry = {};
    var data = shallowCopy(winnerData);
 
@@ -4931,7 +4931,7 @@ function hhmmss(secs)
 function getLocalDate(startDate, minutes)
 {
    let momentDate = moment(startDate, 'HH:mm:ss on YYYY.MM.DD');
-   var timezoneDiff = moment().utcOffset() * 60 * 1000 - 3600 * 1000;
+   var timezoneDiff = moment().utcOffset() * 60 * 1000 + timezoneDiffH * 3600 * 1000;
    if (minutes != 'undefined')
    {
       momentDate.add(minutes * 60 * 1000);

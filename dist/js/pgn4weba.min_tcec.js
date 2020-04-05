@@ -4937,7 +4937,7 @@ function getLinkArch(gameNumber)
       return;
    }
 
-   retLink = "http://tcec.chessdom.com/archive.php";
+   retLink = "http://www.tcec-chess.com/archive.html";
    retLink = retLink + "?se=" + jsSeasonInt ;
    retLink = retLink + "&di=" + currDiv[1];
    retLink = retLink + "&ga=" + gameNumber;

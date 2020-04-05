@@ -1,0 +1,99 @@
+/** Archive games pgn table **/
+
+#seasondiv > ul div{
+  width:50%;
+  float:right;
+  margin-right:10px;
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .255em;
+    vertical-align: .255em;
+    border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-bottom: 0;
+    border-left: .3em solid transparent;
+}
+
+
+		
+#seasondiv div.active {
+		background-color: rgba(255,255,255,.4) !important;
+}
+#seasondiv {
+  max-height: 500px;
+  overflow:scroll;
+  overflow-x:hidden;
+}
+#seasondiv.collapse-dark {
+    color: #fff !important;
+    background-color: #212529;
+}
+
+#seasondiv.collapse-dark button[type="button"] {
+    color: #fff !important;
+}
+
+#seasondiv button[aria-expanded="true"] > .caret {
+    vertical-align: 0em;
+    margin-left: .446em;
+    border-top: .3em solid transparent;
+    border-right: 0;
+    border-bottom: .3em solid transparent;
+    border-left: .3em solid ;
+}
+#seasondiv button{
+  background-color: Transparent;
+}
+#seasondiv>div:nth-child(odd){
+background-color:rgba(0,0,0,.05);
+}
+
+#seasondiv > div> div> div:hover {
+		background-color: rgba(255,255,255,.2);
+}
+
+#seasondiv.collapse-dark>div:nth-child(odd){
+background-color:rgba(255,255,255,.05);
+}
+.order-last > .row {
+  display:block;		
+}
+
+				
+.headerItem {
+  display:inline-block;
+}
+
+@media (max-width: 768px) {
+	
+	.banner-image-menu {
+			max-height:45px;
+			min-width:40px;
+			min-height:30px;
+			max-width:100%;
+			height:6vw;
+	}
+	
+	.padding-0 {
+		padding:0;
+		max-height: 45px;
+		min-width: 40px;
+		min-height: 30px;
+	}
+	
+}
+
+@media (max-width: 357px) {
+	.offset-xss-4  {
+		margin-left: 30%;
+	}
+}
+@media (max-width: 275px) {
+	.offset-xss-4  {
+		margin-left: 20%;
+	}
+}

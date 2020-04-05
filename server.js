@@ -26,6 +26,7 @@
 */
 
 var https = require("https");
+var http = require("http");
 var url = require('url');
 var fs = require('fs');
 var io = require('socket.io')();
@@ -47,7 +48,7 @@ var liveeval = 'data.json';
 var livejson = 'live.json';
 var pgnDir = '/var/www/json/archive/'
 var json = '/var/www/json/archive/';
-var archroot = '/var/www/cd.tcecbeta.club/';
+var archroot = '/var/www/archive.tcec-chess.com/';
 var gameJson = 'gamelist.json';
 var singlePerl = archroot + 'single.pl';
 var prevpgn = 0;
@@ -69,13 +70,14 @@ var count = 0;
 var socket = 0;
 var totalCount = 0;
 var socketArray = [];
-var userCountFactor = 0.5;
+var userCountFactor = 1;
 /* Deltapgn: Configure this to less value for less data */
 var numMovesToSend = 2;
 var liveChartInterval = setInterval(function() { sendlines(); }, 3000);
 let retPgn = 0;
 const shlib = require("./lib.js");
 let jsonMenuData = 0;
+let frc = 0;
 
 function setArgs()
 {
@@ -110,6 +112,11 @@ function setArgs()
       globalid = argv.id;
    }
 
+   if (argv.frc)
+   {
+      frc = 1;
+   }
+
    retPgn = checkLatestArchive();
    console.log ("End of setArgs: port is :" + portnum);
 }
@@ -122,13 +129,18 @@ function startServer()
    }
 
    /* Encryption keys */
+   
    var options = 
    {
-      key: fs.readFileSync('/etc/letsencrypt/live/tcec.chessdom.com/privkey.pem'),
-      cert: fs.readFileSync('/etc/letsencrypt/live/tcec.chessdom.com/fullchain.pem')
+      key: fs.readFileSync('/etc/letsencrypt/live/tcec-chess.com/privkey.pem'),
+      cert: fs.readFileSync('/etc/letsencrypt/live/tcec-chess.com/fullchain.pem')
    };
 
-   var server = https.createServer(options, app).listen(parseInt(portnum), function() 
+   /*var server = https.createServer(options, app).listen(parseInt(portnum), function() 
+   {
+      console.log('Express server listening on port ' + portnum);
+   });*/
+   var server = http.createServer(app).listen(parseInt(portnum), function() 
    {
       console.log('Express server listening on port ' + portnum);
    });
@@ -277,31 +289,6 @@ function userCountActual()
    return (parseInt(socketArray.length));
 }
 
-function getPrevPGN(id, name, menuData)
-{
-   var found = 0;
-   var data = menuData;
-   var prevpgn = [];
-
-   _.each(data.Seasons, function(value, key) {
-      if (found)
-      {
-         return false;
-      }
-      _.each(value.sub, function(subvalue,subkey) {
-         if ((parseInt(subvalue.dno) <= id) &&
-            (value.seasonName == name))
-         {
-            var pgnStr = subvalue.abb + ".pgn";
-            prevpgn.push(pgnStr);
-         }
-      });
-   });
-
-   var prevpgnStr = prevpgn.join();
-   return prevpgnStr;
-}
-
 function checkLatestArchive()
 {
    if (!globalid)
@@ -342,6 +329,7 @@ function addLatestArch()
       if (retPgn)
       {
          touchFile(retPgn.pgnFile);
+         console.log ("Monitor pgn file: " + retPgn.pgnFile);
          watcherSlow.add(retPgn.pgnFile);
       }
       else
@@ -500,6 +488,11 @@ function runPerlArchive()
          perlrun = perlrun + " --resume 1";
       }
 
+      if (argv.frc)
+      {
+         perlrun = perlrun + " --frc";
+      }
+
       console.log ("Running perl file:" + perlrun);
       exec(perlrun, function(err, stdout, stderr) {
          inprogress = 0;
@@ -570,12 +563,11 @@ function Misc()
    io.sockets.on ('connection', function(socket)
    {
       var socketId = socket.id;
-      var clientIp = socket.request.connection.remoteAddress;
       count = socketArray.length;
 
-      if (socketArray.indexOf(clientIp) === -1)
+      if (socketArray.indexOf(socketId) === -1)
       {
-         socketArray.push(clientIp);
+         socketArray.push(socketId);
       }
 
       socket.on('room', function(room) 
@@ -603,7 +595,7 @@ function Misc()
 
       socket.on('disconnect', function()
       {
-         socketArray = arrayRemove(socketArray, clientIp);
+         socketArray = arrayRemove(socketArray, socketId);
       });
 
       socket.on('getusers', function(data)

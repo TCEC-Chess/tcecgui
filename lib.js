@@ -9,6 +9,31 @@ function perror(errormsg)
    process.exit();
 }
 
+function getPrevPGN(id, name, menuData)
+{
+   var found = 0;
+   var data = menuData;
+   var prevpgn = [];
+
+   _.each(data.Seasons, function(value, key) {
+      if (found)
+      {
+         return false;
+      }
+      _.each(value.sub, function(subvalue,subkey) {
+         if ((parseInt(subvalue.dno) <= id) &&
+            (value.seasonName == name))
+         {
+            var pgnStr = subvalue.abb + ".pgn";
+            prevpgn.push(pgnStr);
+         }
+      });
+   });
+
+   var prevpgnStr = prevpgn.join();
+   return prevpgnStr;
+}
+
 function getPGN(id, jsonMenuData)
 {
    var found = 0;

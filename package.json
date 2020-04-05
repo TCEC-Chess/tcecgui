@@ -1,21 +1,22 @@
 {
-  "name": "tcecbeta.club",
+  "name": "tcec.gui",
   "version": "1.0.0",
-  "description": "Beta Web GUI for TCEC on Chessdom.com Please create issues for feature requests",
+  "description": "Web GUI for TCEC on Chessdom.com Please create issues for feature requests",
   "main": "cluster.js",
   "dependencies": {
-    "axios": "^0.18.0",
-    "chokidar": "^2.0.4",
-    "deep-equal": "^1.0.1",
+    "axios": "^0.18.1",
+    "chess.js": "^0.10.2",
+    "chokidar": "^2.1.8",
+    "deep-equal": "^1.1.0",
     "express": "^4.16.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "md5": "^2.2.1",
     "neek": "^1.1.2",
     "nodejs-tail": "^1.1.0",
-    "read-last-lines": "^1.6.0",
+    "read-last-lines": "^1.7.1",
     "socket.io": "^2.1.1",
     "unused": "^0.2.2",
-    "yargs": "^13.2.2"
+    "yargs": "^13.3.0"
   },
   "devDependencies": {},
   "scripts": {

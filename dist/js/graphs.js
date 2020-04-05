@@ -14,8 +14,10 @@ var evalChartData = {};
 var engineColorArray = ['darkred', 'red', 'green', 'darkgreen', 'yellow', 'purple', 'orange'];
 var evalconstant = 10.0;
 var eng1L = 'Bluefish';
+eng1L = 'Blueleela';
 var eng2L = 'Redmodo';
 eng2L = 'Redfish';
+eng2L = '7Fish';
 
 var evalLabels = [];
 var labels = [];
@@ -245,7 +247,7 @@ function drawEval()
                      evall= _.union(evall, ['Black Eval: ' + data.datasets[1].data[tooltipItem.index].eval]);
                   }
                   if (typeof data.datasets[2].data[tooltipItem.index] != 'undefined') {
-                     evall= _.union(evall, ['BF Eval: ' + data.datasets[2].data[tooltipItem.index].eval]);
+                     evall= _.union(evall, [eng1L + 'Eval: ' + data.datasets[2].data[tooltipItem.index].eval]);
                   }
                   if (typeof data.datasets[3].data[tooltipItem.index] != 'undefined') {
                      evall= _.union(evall, [eng2L + ' Eval: ' + data.datasets[3].data[tooltipItem.index].eval]);
@@ -878,7 +880,7 @@ function updateChartDataLiveEval2()
             key = dataToUse.ply;
          }
 
-         plog ("RRR: Doing for ctrl:" + ctr + " ,startEval:" + startEval, 0);
+         /*plog ("RRR: Doing for ctrl:" + ctr + " ,startEval:" + startEval, 0);*/
 
          if (evalChart.data.datasets[1].data[ctr] != undefined)
          {
@@ -892,11 +894,11 @@ function updateChartDataLiveEval2()
             needtoUpdate = 1;
             var moveNumber = dataToUse.x;
             evalObject = getLiveEval(key, moveNumber, isBlack, 2);
-            plog ("RRR: cont2 Doing for ctrl:" + ctr + ", key:" + key + " ,startEval:" + startEval + ", evalObject:" + evalObject.y + " ,isblack:" + isBlack, 0);
+            /*plog ("RRR: cont2 Doing for ctrl:" + ctr + ", key:" + key + " ,startEval:" + startEval + ", evalObject:" + evalObject.y + " ,isblack:" + isBlack, 0);*/
             if (!prevPgnData.Moves[0].didliveEval2)
             {
                prevPgnData.Moves[0].didliveEval2 = ctr;
-               plog ("RRR:X setting cont2 Doing for ctrl:" + ctr + ", key:" + key + " ,startEval:" + startEval + ", evalObject:" + evalObject.y + " ,isblack:" + isBlack, 0);
+               /*plog ("RRR:X setting cont2 Doing for ctrl:" + ctr + ", key:" + key + " ,startEval:" + startEval + ", evalObject:" + evalObject.y + " ,isblack:" + isBlack, 0);*/
             }
             if (evalObject.y == null)
             {
@@ -953,7 +955,7 @@ function updateChartDataLiveEval1()
             key = dataToUse.ply;
          }
 
-         plog ("RRR: Doing for ctrl:" + ctr + " ,startEval:" + startEval, 0);
+         /*plog ("RRR: Doing for ctrl:" + ctr + " ,startEval:" + startEval, 0);*/
 
          if (evalChart.data.datasets[1].data[ctr] != undefined)
          {
@@ -967,7 +969,7 @@ function updateChartDataLiveEval1()
             needtoUpdate = 1;
             var moveNumber = dataToUse.x;
             evalObject = getLiveEval(key, moveNumber, isBlack, 1);
-            plog ("RRR: cont1 Doing for ctrl:" + ctr + ", key:" + key + " ,startEval:" + startEval + ", evalObject:" + evalObject.y + " ,isblack:" + isBlack, 0);
+            /*plog ("RRR: cont1 Doing for ctrl:" + ctr + ", key:" + key + " ,startEval:" + startEval + ", evalObject:" + evalObject.y + " ,isblack:" + isBlack, 0);*/
             if (!prevPgnData.Moves[0].didliveEval1)
             {
                prevPgnData.Moves[0].didliveEval1 = ctr;

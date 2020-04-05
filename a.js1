@@ -1,7 +1,0 @@
-var neek = require('neek');
-
-var readable = 'a.js';
-var writable = 'a.js1';
-neek.unique(readable, writable, function(result){
-  console.log(result);
-});

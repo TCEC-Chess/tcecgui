@@ -1,0 +1,138 @@
+/*!
+ * chessboard.js $version$
+ *
+ * Copyright 2013 Chris Oakman
+ * Released under the MIT license
+ * https://github.com/oakmac/chessboardjs/blob/master/LICENSE
+ *
+ * Date: $date$
+ */
+
+/* clearfix */
+.clearfix-7da63 {
+  clear: both;
+}
+
+/* board */
+.board-b72b1 {
+  border: 2px solid #404040;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.chessboard-63f37 {
+  position: relative;
+}
+
+.overlay-4fc5e {
+  pointer-events: none;
+  position: absolute;
+  z-index: 10;
+  opacity: 1.0;
+  fill: #999;
+  stroke: #999;
+}
+/*
+.overlay-4fc5e .blue {
+  fill: #007bff;
+  stroke: #007bff;
+}
+
+.blue {
+  fill: #007bff;
+  stroke: #007bff;
+}
+
+.overlay-4fc5e .orange {
+  fill: #ff8400;
+  stroke: #ff8400;
+}
+
+.orange {
+  fill: #ff8400;
+  stroke: #ff8400;
+}
+*/
+
+.overlay-4fc5e defs {
+  stroke: none;
+  //fill: #ff8400;
+  //stroke: #ff8400;
+}
+  
+.overlay-4fc5e defs-blue {
+  fill: #007bff;
+  stroke: #007bff;
+}
+
+.blues {
+  fill: #007bff;
+  stroke: #007bff;
+}
+
+.reds {
+  fill: #f08080;
+  stroke: #f08080;
+}
+
+.overlay-group-672a1 {
+  opacity: 0.7;
+  stroke-linecap: square;
+  stroke-linejoin: round;
+  marker-end: url(#arrowhead);
+  marker-start: url(#bulb);
+  fill: none;
+}
+
+/* square */
+.square-55d63 {
+  float: left;
+  position: relative;
+
+  /* disable any native browser highlighting */
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+/* white square */
+/*
+.white-1e1d7 {
+  background-color: #f0d9b5;
+  color: #b58863;
+}
+*/
+/* black square */
+/*
+.black-3c85d {
+  background-color: #b58863;
+  color: #f0d9b5;
+}
+*/
+
+/* highlighted square */
+.highlight1-32417, .highlight2-9c5d2 {
+  -webkit-box-shadow: inset 0 0 3px 3px yellow;
+  -moz-box-shadow: inset 0 0 3px 3px yellow;
+  box-shadow: inset 0 0 3px 3px yellow;
+}
+
+/* notation */
+.notation-322f9 {
+  cursor: default;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  position: absolute;
+}
+.alpha-d2270 {
+  bottom: 1px;
+  right: 3px;
+}
+.numeric-fc462 {
+  top: 2px;
+  left: 2px;
+}
