@@ -3060,32 +3060,29 @@ function setEngineColor(color)
 
 
 
-function updateLiveEvalDataHistory(datum, fen, container, contno){
-
-   let score = parseFloat(datum.eval).toFixed(2);
-   if (score === "NaN") {
+function updateLiveEvalDataHistory(datum, fen, container, contno)
+{
+   if (!isNaN(datum.eval))
+   {
+      score = parseFloat(datum.eval);
+   }
+   else
+   {
       score = datum.eval;
    }
-   score = "" + score;
-   //if isblackmove, invert sign.
-   if(regexBlackMove.test(datum.pv)) {
-      if (score.charAt(0) == "-") {
-         score = score.substring(1);
-      } else {
-         score = "-" +score;
-      }
-   }
 
-   try {
-      if (parseInt(score) == 0)
+   if (datum.pv.search(/.*\.\.\..*/i) == 0)
+   {
+      if (!isNaN(score))
       {
-         score = "0.00";
+         score = parseFloat(score) * -1;
+         if (score === 0)
+         {
+            score = 0;
+         }
       }
    }
-   catch(e)
-   {
-      // do nothing
-   }
+	
    datum.eval = score;
    datum.tbhits = getTBHits(datum.tbhits);
    datum.nodes = getNodes(datum.nodes);
@@ -5515,4 +5512,5 @@ function formatterEvent(value, row, index, field) {
    });
   return retStr;
 }
+
 
