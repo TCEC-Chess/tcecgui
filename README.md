@@ -4,6 +4,17 @@ TCEC GUI
 This is the code that powers the
 [tcec-chess.com](http://tcec-chess.com/) website.
 
+Setting up a development environment
+------------------------------------
+
+1. Git clone --> `$TCECGUI`
+2. Run `$TCECGUI/scripts/setup-development.sh`. This does the following:
+   * `npm install` to download node_modules packages in tcecgui/tcec-chess.com/
+   * Runs `$TCECGUI/scripts/download-tcec-live-files-for-testing.sh` to download live files from the TCEC server
+3. Run `$TCECGUI/scripts/start-tcec-chess-live-update.sh` to launch the live update server (CTRL+C to stop)
+4. Point your browser to `$TCECGUI/tcec-chess.com/live.html`
+
+This section is incomplete.
 
 
 Licence
