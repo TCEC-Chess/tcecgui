@@ -3072,12 +3072,14 @@ function updateLiveEvalDataHistory(datum, fen, container, contno)
    }
 
    /* Check if black */
-   if (datum.pv.search(/.*\.\.\..*/i) == 0)
+   if(regexBlackMove.test(datum.pv)) {
    {
       if (!isNaN(score))
       {
          /* Invert the score */ 	  
+         plog ("TCECROCKS: Score before conversion is :" + score);	      
          score = parseFloat(score) * -1;
+         plog ("TCECROCKs: Score after conversion is :" + score);	      
          if (score === 0)
          {
             score = 0;
