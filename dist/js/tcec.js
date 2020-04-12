@@ -3071,10 +3071,12 @@ function updateLiveEvalDataHistory(datum, fen, container, contno)
       score = datum.eval;
    }
 
+   /* Check if black */
    if (datum.pv.search(/.*\.\.\..*/i) == 0)
    {
       if (!isNaN(score))
       {
+         /* Invert the score */ 	  
          score = parseFloat(score) * -1;
          if (score === 0)
          {
