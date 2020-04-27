@@ -1,2 +1,2 @@
 #!/bin/bash
-node cluster.js --port 8080
+node cluster.js --port 8081

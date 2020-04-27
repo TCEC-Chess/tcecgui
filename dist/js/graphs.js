@@ -15,9 +15,12 @@ var engineColorArray = ['darkred', 'red', 'green', 'darkgreen', 'yellow', 'purpl
 var evalconstant = 10.0;
 var eng1L = 'Bluefish';
 eng1L = 'Blueleela';
+eng1L = '7Blue';
+//eng1L = 'Blue';
 var eng2L = 'Redmodo';
 eng2L = 'Redfish';
 eng2L = '7Fish';
+eng2L = '7Red';
 
 var evalLabels = [];
 var labels = [];

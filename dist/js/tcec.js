@@ -1086,9 +1086,13 @@ function getNNPct(engineName, egEval) {
    if (engineName === "LCZero") {
       whiteWinPct = leelaEvalToWinPct(egEval);
    } else {
-      whiteWinPct =
-         (Math.atan((egEval * 100) / 290.680623072) / 3.096181612 + 0.5) * 100 -
-         50;
+      var cp = egEval * 100;
+      if (Math.abs(cp) > 1000) {
+        whiteWinPct = (cp + (cp > 0 ? 127407 : -127407)) / 153007;
+      } else {
+        whiteWinPct = Math.atan(cp / 111) / 1.74;
+      }
+      whiteWinPct *= 50;
    }
 
    if (egEval < 0) {
@@ -3076,17 +3080,15 @@ function updateLiveEvalDataHistory(datum, fen, container, contno)
    {
       if (!isNaN(score))
       {
-         /* Invert the score */ 	  
-         plog ("TCECROCKS: Score before conversion is :" + score);	      
+         /* Invert the score */
          score = parseFloat(score) * -1;
-         plog ("TCECROCKs: Score after conversion is :" + score);	      
          if (score === 0)
          {
             score = 0;
          }
       }
    }
-	
+
    datum.eval = score;
    datum.tbhits = getTBHits(datum.tbhits);
    datum.nodes = getNodes(datum.nodes);
@@ -3427,17 +3429,17 @@ function updateLiveEvalDataNew(datum, update, fen, contno, initial) {
    {
       x = (datum.plynum + 1)/2;
    }
-   var evalData = 
-	{
-		'x': x,
-		'y': score,
-		'ply': datum.plynum,
-		'eval': score
-	};
+   var evalData =
+    {
+        'x': x,
+        'y': score,
+        'ply': datum.plynum,
+        'eval': score
+    };
 
    if (prevevalData.ply != datum.plynum)
    {
-      prevevalData = {}; 
+      prevevalData = {};
    }
 
    if (prevevalData.eval != evalData.eval)
