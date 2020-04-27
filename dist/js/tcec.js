@@ -3076,7 +3076,7 @@ function updateLiveEvalDataHistory(datum, fen, container, contno)
    }
 
    /* Check if black */
-   if(regexBlackMove.test(datum.pv)) {
+   if (datum.pv.search(/.*\.\.\..*/i) == 0)	
    {
       if (!isNaN(score))
       {
