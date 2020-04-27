@@ -37,10 +37,10 @@ if (cluster.isMaster)
       count = 0;
       worker.on('message', function(msg) 
       {
-         if (typeof msg.workers != 'undefined')
+         if (typeof msg.users != 'undefined')
          {
-            console.log ("CLUSTER: Count is :" + count + " ,got count:" + parseInt(msg.workers) + ",clientCount:" + clientCount);
-            count = parseInt(count) + parseInt(msg.workers);
+            console.log ("CLUSTER: Count is :" + count + " ,got count:" + parseInt(msg.users) + ",clientCount:" + clientCount);
+            count = parseInt(count) + parseInt(msg.users);
             clientCount = clientCount + 1;
          }
       });
