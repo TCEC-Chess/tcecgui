@@ -5270,13 +5270,13 @@ function drawBracket1()
                if (roundNox%2 == 1)
                {
                   var localRoundL = localRound + 1;
-                  if (localRoundL == 31)
+                  if (localRoundL == 15)
                   {
-                     localRoundL = 32;
+                     localRoundL = 16;
                   }
-                  else if (localRoundL == 32)
+                  else if (localRoundL == 16)
                   {
-                     localRoundL = 31;
+                     localRoundL = 15;
                   }
                   var befStr = '<div class="labelbracket"> <a class="roundleft"> #' + (localRoundL) + '</a> ';
                   if (roundDate[localRound] != undefined)
