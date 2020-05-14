@@ -894,6 +894,7 @@ function startup() {
         eng: 'English',
         fra: 'français',
         jpn: '日本語',
+        pol: 'Polski',
         rus: 'русский',
         ukr: 'українська',
     };
