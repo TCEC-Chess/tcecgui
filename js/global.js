@@ -29,6 +29,20 @@ let HOST = 'https://tcec-chess.com',
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Extract the 50-move rule counter from a FEN
+ * @param {string} fen
+ * @returns {number} -2 on error, otherwise >= 0
+ */
+function extract_fen_rule50(fen) {
+    if (!fen)
+        return -2;
+    let items = fen.split(' '),
+        rule50 = items[4] * 1;
+
+    return rule50;
+}
+
+/**
  * Extract the ply from a FEN
  * - first move: ply=0 (white has just moved, it's black's turn now)
  * @param {string} fen

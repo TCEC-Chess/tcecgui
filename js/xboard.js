@@ -169,7 +169,7 @@ class XBoard {
         this.dual = null;
         this.evals = [];                                // eval history
         this.fen = START_FEN;                           // current fen
-        this.goal = [-1, -1];
+        this.goal = [-20.5, -1];
         this.grid = new Array(128);
         this.high_color = '';                           // highlight color
         this.high_size = 0.06;                          // highlight size
@@ -787,10 +787,11 @@ class XBoard {
         let checked = this.chess.checked(),
             moves = this.chess.moves({legal: true}),
             ply = extract_fen_ply(fen),
+            rule50 = extract_fen_rule50(fen),
             sign = this.chess.turn() == 'w'? -1: 1,
             score = sign * (moves.length + (checked? 0: 0.5));
 
-        if (this.goal[0] < 0 || Abs(score) < this.goal[0])
+        if (rule50 == 0 || Abs(score) < Abs(this.goal[0]))
             this.goal = [score, ply];
 
         if (move) {
@@ -1535,7 +1536,7 @@ class XBoard {
         if (this.check_locked())
             return;
 
-        this.goal = [-1, -1];
+        this.goal = [-20.5, -1];
         this.grid.fill('');
         this.moves.length = 0;
         this.next = null;
