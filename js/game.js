@@ -221,7 +221,7 @@ let ANALYSIS_URLS = {
         overview: 'TC|Adj Rule|50|Draw|Win|TB|Result|Round|Opening|ECO|Event|Viewers',
         sched: '{Game}#|White|white_ev=W.ev|black_ev=B.ev|Black|Result|Moves|Duration|Opening|Termination|ECO|Final FEN|Start',
         season: 'Season|Download',
-        stand: 'Rank|Engine|Games|Points|{Wins} [W/B]|{Losses} [W/B]|Crashes|SB|Elo|{Diff} [{Live}]',
+        stand: 'Rank|Engine|Games|Points|{Wins} [W/B]|{Losses} [W/B]|Crashes|SB|Elo',
         winner: 'name=S#|winner=Champion|runner=Runner-up|Score|Date',
     },
     TB_URL = 'https://syzygy-tables.info/?fen={FEN}',
@@ -886,7 +886,6 @@ function analyse_crosstable(section, data) {
 
         stand_rows.push({
             crashes: dico.Strikes,
-            diff: `${new_elo - elo} [${new_elo}]`,
             elo: elo,
             engine: name,
             games: dico.Games,
