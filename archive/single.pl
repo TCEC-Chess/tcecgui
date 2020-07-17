@@ -175,11 +175,11 @@ print("node /var/www/archive.tcec-chess.com/dist/js/sched2.js --filename \'$pgnF
 if ($cup && $pwd)
 {
    my $schedFile = $archDir . "/" . $tag . "_Schedule.sjson";
-   my $eventFile = $archDir . "/" . $eventTag. "_Eventcrosstable.cjson";
+   my $eventFile = $archDir . "/" . "Eventcrosstable.json";
    system ("ln -fs $schedFile $pwd/schedule.json");
    system ("ln -fs $eventFile $pwd/Eventcrosstable.json");
    print ("ln -fs $schedFile $pwd/schedule.json\n");
-   print ("ln -fs $schedFile $pwd/Eventcrosstable.json\n");
+   print ("ln -fs $eventFile $pwd/Eventcrosstable.json\n");
 }
 elsif ($resume)
 {
