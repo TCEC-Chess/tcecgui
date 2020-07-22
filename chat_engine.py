@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+#@authors Aloril <aloril@iki.fi>, octopoulo <polluxyz@gmail.com>
 import json
 import os
 from random import choice
@@ -8,9 +8,9 @@ import sys
 from time import sleep, time
 from typing import Any, List
 
-from chess import Board
+from chess import Board, WHITE
 
-name = 'Chatengine 0.3'
+name = 'Chatengine 0.4'
 HOST = 'localhost'
 PORT = 8090
 move_overhead = 1
@@ -21,7 +21,7 @@ class ChatEngine:
     def __init__(self):
         self.board = Board()
         self.data = b''
-        self.fen = ''
+        self.reset_board()
         self.next_update = time()
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.update = ""
@@ -33,11 +33,19 @@ class ChatEngine:
         print(*args)
         sys.stdout.flush()
 
+    def reset_board(self, moves = []):
+        self.board.reset()
+        for move in moves:
+            self.board.push_uci(move)
+        lst = self.board.fen().split()
+        self.fen = " ".join(lst[:2]+lst[-1:])
+        self.legal_uci_moves = set([str(move) for move in self.board.legal_moves])
+
     def start_voting(self):
-        self.sock.sendall(b'{"voting":"%s"}' % self.fen.encode("utf-8"))
+        self.sock.sendall(b'{"voting":1,"fen":"%s"}' % self.fen.encode("utf-8"))
 
     def stop_voting(self, best_move: str):
-        self.sock.sendall(b'{"voting":"","best_move":"%s"}' % best_move.encode('utf-8'))
+        self.sock.sendall(b'{"voting":0,"fen":"%s","best_move":"%s"}' % (self.fen.encode("utf-8"), best_move.encode('utf-8')))
 
     def read_votes(self) -> List[Any]:
         try:
@@ -45,13 +53,13 @@ class ChatEngine:
         except BlockingIOError:
             pass
         if len(self.data) < 4 or int(self.data[:4]) > len(self.data)-4:
-            return
+            return []
         length = int(self.data[:4])
         msg = json.loads(self.data[4:length+4])
         self.data = self.data[length+4:]
         if self.fen != msg.get('fen'):
-            return
-        return msg.get('votes')
+            return []
+        return [x for x in msg.get('votes') if x[0] in self.legal_uci_moves]
 
     def send_update(self, force=False):
         if self.update and (force or time() >= self.next_update):
@@ -74,8 +82,7 @@ class ChatEngine:
                 self.pr()
                 self.pr("uciok")
             elif key == "ucinewgame":
-                self.board.reset()
-                self.fen = self.board.fen()
+                self.reset_board()
             elif key == "isready":
                 self.pr("readyok")
             elif key == "position":
@@ -86,17 +93,19 @@ class ChatEngine:
                         moves = items[1:]
                     else:
                         moves = []
-                    self.board.reset()
-                    for move in moves:
-                        self.board.push_uci(move)
-                    self.fen = self.board.fen()
+                    self.reset_board(moves)
             elif key == "go":
                 items.pop(0)
-                if len(items) < 2 or items[0] != "movetime":
+                time_s = ""
+                color_time = "wtime" if self.board.turn == WHITE else "btime"
+                for time_key in ("movetime", color_time):
+                    if time_key in items:
+                        time_s = items[items.index(time_key)+1]
+                if not time_s:
                     continue
 
                 self.start_voting()
-                time_s = int(items[1])/1000.0 - move_overhead
+                time_s = int(time_s)/1000.0 - move_overhead
                 t0 = time()
                 previous_votes = None
                 best_move = str(choice(tuple(self.board.legal_moves)))

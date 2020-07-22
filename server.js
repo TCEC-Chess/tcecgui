@@ -27,11 +27,13 @@
 
 /*
 globals
-__dirname, console, process, require, setInterval, setTimeout
+__dirname, console, exports, process, require, setInterval, setTimeout
 */
 'use strict';
 
 let Keys = Object.keys;
+
+var chatServer = require("./chat_server");
 
 // var https = require("https");
 var http = require("http");
@@ -80,7 +82,7 @@ var userCountFactor = 1;
 /* Deltapgn: Configure this to less value for less data */
 var numMovesToSend = 2;
 var liveChartInterval = setInterval(function() { sendlines(); }, 3000);
-let retPgn = {};
+let retPgn = 0;
 const shlib = require("./lib.js");
 let jsonMenuData = 0;
 let frc = 0;
@@ -362,6 +364,12 @@ function broadCastUsers()
    io.local.emit('users', {'count': userCount()});
 }
 
+function setVotingStatus(status)
+{
+   console.log ("setVotingStatus: " + JSON.stringify(status));
+   io.local.emit('voting', status);
+}
+
 function broadCastData(socket, message, file, currData, prevData)
 {
    if (deepEqual(currData, prevData))
@@ -634,6 +642,13 @@ function Misc()
          console.log('XXXXXX: req came' + lastPgnTime);
       });
 
+      socket.on('vote', function(data)
+      {
+          //console.log('vote, socket: ' + JSON.stringify(socket.request));
+	  //data.ip = socket.request.connection.remoteAddress;
+	  data.ip = socket.request.headers.cookie;
+	  chatServer.vote(data);
+      });
    });
 
    watcherFast.on('change', (path, stats) =>
@@ -839,3 +854,4 @@ function Main()
 
 Main();
 
+exports.setVotingStatus = setVotingStatus;

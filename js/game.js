@@ -76,6 +76,7 @@ let ANALYSIS_URLS = {
             vis: 'archive',
         },
         live: {
+            manual: true, //should not be here, set_voting_status sets this
             count: 'end',
             last: '*',
             main: true,
@@ -3524,6 +3525,20 @@ function update_scores(section) {
     for (let id = 0; id < 2; id ++) {
         let player = players[id];
         HTML(Id(`score${id}`), `${Undefined(player.score, '-')} (${Undefined(player.elo, '-')})`);
+    }
+}
+
+/**
+ * Update voting status
+ * @param {string} section
+ * @param {Object} voting on/off, fen
+ */
+function set_voting_status(section, data) {
+    let main = xboards[section];
+    if ( data.voting ) {
+	main.manual = true;
+    } else {
+	main.manual = false;
     }
 }
 

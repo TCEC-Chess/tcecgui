@@ -1595,8 +1595,12 @@ class XBoard {
                 node = next;
             }
         }
-
+	
         this.add_moves([move]);
+
+        let previousFen = this.moves.length>1 ? this.moves[this.moves.length-2].fen : 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+        let uci = this.chess.ucify(move);
+        socket.emit('vote', {fen: previousFen, move: uci});
 
         // maybe finished the game? 50MR / stalemate / win
         if (this.manual) {
