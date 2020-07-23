@@ -642,7 +642,7 @@ function Misc()
       {
           //console.log('vote, socket: ' + JSON.stringify(socket.request));
 	  //data.ip = socket.request.connection.remoteAddress;
-	  data.ip = socket.request.headers.cookie;
+	  data.ip = socket.handshake.headers["x-real-ip"] || socket.request.connection.remoteAddress;
 	  chatServer.vote(data);
       });
    });
