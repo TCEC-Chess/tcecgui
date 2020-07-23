@@ -159,7 +159,7 @@ let ANALYSIS_URLS = {
         LCZero: 1 + 2,                  // & 2 => Leela variations
         ScorpioNN: 1,
         Stoofvlees: 1 + 8,
-	Chat: 256,
+        Chat: 256,
     },
     event_stats = {
         archive: {},
