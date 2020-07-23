@@ -9,8 +9,6 @@ console, exports, require
 let Module = require('./js/chess-wasm.js'),
     Net = require('net');
 
-let nodeServer = require("./server.js");
-
 let frc = false,
     LS = console.log,
     port = 8090,
@@ -22,7 +20,6 @@ server.listen(port, () => {
 
 let chess,
     voting = {}; //indexed by fen, supports 1-2 clients
-    count = 1; //remove this
 
 /**
  * Load chess-wasm
@@ -109,7 +106,6 @@ server.on('connection', async socket => {
 		delete voting[data.fen];
 		LS("deleted voting");
 	    }
-	    nodeServer.setVotingStatus(data);
         }
 	LS(`Data received from client: ${text}`);
     });

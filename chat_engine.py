@@ -108,9 +108,10 @@ class ChatEngine:
                 time_s = int(time_s)/1000.0 - move_overhead
                 t0 = time()
                 previous_votes = None
-                best_move = str(choice(tuple(self.board.legal_moves)))
+                list_moves = tuple(self.board.legal_moves)
+                best_move = str(choice(list_moves))
 
-                while time() - t0 < time_s:
+                while len(list_moves) > 1 and time() - t0 < time_s:
                     votes = self.read_votes()
                     if votes and votes != previous_votes:
                         elapsed = (time() - t0) * 1000

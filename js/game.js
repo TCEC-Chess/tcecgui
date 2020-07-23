@@ -76,7 +76,7 @@ let ANALYSIS_URLS = {
             vis: 'archive',
         },
         live: {
-            manual: true, // CHECK THIS: should not be here, set_voting_status sets this
+            //manual: true, // CHECK THIS: should not be here, set_voting_status sets this
             count: 'end',
             last: '*',
             main: true,
@@ -159,6 +159,7 @@ let ANALYSIS_URLS = {
         LCZero: 1 + 2,                  // & 2 => Leela variations
         ScorpioNN: 1,
         Stoofvlees: 1 + 8,
+	Chat: 256,
     },
     event_stats = {
         archive: {},
@@ -3528,20 +3529,6 @@ function update_scores(section) {
     }
 }
 
-/** CHECK THIS: doesn't do what is needed
- * Update voting status
- * @param {string} section
- * @param {Object} voting on/off, fen
- */
-function set_voting_status(section, data) {
-    let main = xboards[section];
-    if ( data.voting ) {
-	main.manual = true;
-    } else {
-	main.manual = false;
-    }
-}
-
 /**
  * Update time control, player-specific
  * @param {string} section
@@ -3714,6 +3701,8 @@ function start_clock(id, finished, delta) {
     Hide(`.xcolor${1 - id} .xcog`, node);
 
     stop_clock([0, 1]);
+    // handle Chat player
+    main.manual = (!finished && (player.feature & 256));
 
     if (!finished) {
         Assign(player, {

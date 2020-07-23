@@ -1276,29 +1276,28 @@ class XBoard {
             });
 
         // PVA => extra events
-        if (this.manual) {
-            // place a picked piece
-            C(this.xsquares, e => {
+        // place a picked piece
+        C(this.xsquares, e => {
+            if (that.manual)
                 this.place(e);
-            });
+        });
 
-            // pick a piece
-            C('.xpieces', e => {
-                if (this.place(e) || !this.pick(e))
-                    return;
+        // pick a piece
+        C('.xpieces', e => {
+            if (!that.manual || this.place(e) || !this.pick(e))
+                return;
 
-                this.clear_high('target', this.picked == null);
-                if (this.picked == null)
-                    return;
+            this.clear_high('target', this.picked == null);
+            if (this.picked == null)
+                return;
 
-                this.chess_load(this.fen);
-                let moves = this.chess_moves(this.frc, true, this.picked);
-                for (let move of moves)
-                    this.add_high(move.to, 'target');
-                if (moves[0])
-                    this.add_high(moves[0].from, 'source');
-            }, this.node);
-        }
+            this.chess_load(this.fen);
+            let moves = this.chess_moves(this.frc, true, this.picked);
+            for (let move of moves)
+                this.add_high(move.to, 'target');
+            if (moves[0])
+                this.add_high(moves[0].from, 'source');
+        }, this.node);
     }
 
     /**
@@ -1939,7 +1938,7 @@ class XBoard {
         if (reset_evals)
             this.evals.length = 0;
 
-        this.set_fen(null);
+        this.set_fen(null, true);
         this.set_last(this.last);
     }
 

@@ -27,7 +27,7 @@
 
 /*
 globals
-__dirname, console, exports, process, require, setInterval, setTimeout
+__dirname, console, process, require, setInterval, setTimeout
 */
 'use strict';
 
@@ -362,13 +362,6 @@ function sendUsers()
 function broadCastUsers()
 {
    io.local.emit('users', {'count': userCount()});
-}
-
-// CHECK THIS: probably no change needed
-function setVotingStatus(status)
-{
-   console.log ("setVotingStatus: " + JSON.stringify(status));
-   io.local.emit('voting', status);
 }
 
 function broadCastData(socket, message, file, currData, prevData)
@@ -856,5 +849,3 @@ function Main()
 }
 
 Main();
-
-exports.setVotingStatus = setVotingStatus;

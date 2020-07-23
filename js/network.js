@@ -106,11 +106,6 @@ function init_sockets() {
         log_socket('users', data);
         set_viewers(data.count);
     });
-    // CHECK THIS (no change needed?)
-    socket.on('voting', data => {
-        log_socket('voting', data);
-        set_voting_status('live', data);
-    });
 
     // unused => store the data anyway
     socket.on('enginerating', data => {
