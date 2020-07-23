@@ -76,7 +76,7 @@ let ANALYSIS_URLS = {
             vis: 'archive',
         },
         live: {
-            manual: true, //should not be here, set_voting_status sets this
+            manual: true, // CHECK THIS: should not be here, set_voting_status sets this
             count: 'end',
             last: '*',
             main: true,
@@ -3528,7 +3528,7 @@ function update_scores(section) {
     }
 }
 
-/**
+/** CHECK THIS: doesn't do what is needed
  * Update voting status
  * @param {string} section
  * @param {Object} voting on/off, fen

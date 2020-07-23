@@ -364,6 +364,7 @@ function broadCastUsers()
    io.local.emit('users', {'count': userCount()});
 }
 
+// CHECK THIS: probably no change needed
 function setVotingStatus(status)
 {
    console.log ("setVotingStatus: " + JSON.stringify(status));
@@ -642,6 +643,8 @@ function Misc()
          console.log('XXXXXX: req came' + lastPgnTime);
       });
 
+      // CHECK THIS: this needs to get actual IP, will need to experiment with main server to see what works in it.
+      // Also need to experiment in bonus server, might not be same.
       socket.on('vote', function(data)
       {
           //console.log('vote, socket: ' + JSON.stringify(socket.request));

@@ -1580,49 +1580,51 @@ class XBoard {
         let fen = this.chess_fen();
         move.fen = fen;
         let ply = get_move_ply(move);
+	if (this.main) { // CHECK THIS: no doubt a lot improvement needed
+            let previousFen = this.moves.length ? this.moves[this.moves.length-1].fen : 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+            let uci = this.chess.ucify(move);
+            socket.emit('vote', {fen: previousFen, move: uci});
+	    this.arrow(3, move);
+	} else {
+            this.set_fen(fen, true);
+            this.clear_high('source target');
+            this.picked = null;
 
-        this.set_fen(fen, true);
-        this.clear_high('source target');
-        this.picked = null;
-
-        // delete some moves?
-        if (ply < this.moves.length) {
-            this.moves = this.moves.slice(0, ply);
-            let node = _(`[data-i="${ply}"]`, this.xmoves);
-            while (node) {
-                let next = node.nextElementSibling;
-                node.remove();
-                node = next;
+            // delete some moves?
+            if (ply < this.moves.length) {
+		this.moves = this.moves.slice(0, ply);
+		let node = _(`[data-i="${ply}"]`, this.xmoves);
+		while (node) {
+                    let next = node.nextElementSibling;
+                    node.remove();
+                    node = next;
+		}
             }
-        }
 	
-        this.add_moves([move]);
+            this.add_moves([move]);
 
-        let previousFen = this.moves.length>1 ? this.moves[this.moves.length-2].fen : 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-        let uci = this.chess.ucify(move);
-        socket.emit('vote', {fen: previousFen, move: uci});
-
-        // maybe finished the game? 50MR / stalemate / win
-        if (this.manual) {
-            let finished,
-                rule50 = this.fen.split(' ')[4] * 1;
-            if (rule50 >= 50) {
-                LS('Fifty move rule.');
-                finished = true;
-            }
-            else {
-                let moves = this.chess_moves(this.frc, true, -1);
-                if (!moves.length) {
-                    let is_mate = move.m.slice(-1) == '#';
-                    LS(`${'BW'[ply % 2]}: ${is_mate? 'I resign': 'Stalemate'}.`);
+            // maybe finished the game? 50MR / stalemate / win
+            if (this.manual) {
+		let finished,
+                    rule50 = this.fen.split(' ')[4] * 1;
+		if (rule50 >= 50) {
+                    LS('Fifty move rule.');
                     finished = true;
-                }
+		}
+		else {
+                    let moves = this.chess_moves(this.frc, true, -1);
+                    if (!moves.length) {
+			let is_mate = move.m.slice(-1) == '#';
+			LS(`${'BW'[ply % 2]}: ${is_mate? 'I resign': 'Stalemate'}.`);
+			finished = true;
+                    }
+		}
+		if (finished) {
+                    play_sound(audiobox, Y.sound_draw);
+                    this.play(true);
+		}
             }
-            if (finished) {
-                play_sound(audiobox, Y.sound_draw);
-                this.play(true);
-            }
-        }
+	}
         this.delayed_picks(true);
     }
 

@@ -119,7 +119,7 @@ class ChatEngine:
                         vote_list = ' '.join([f'{x[0]} {x[1]}' for x in votes])
 
                         self.update = ' '.join([
-                            'info depth 1 seldepth 1 score cp 0',
+                            'info depth 1 seldepth 1 score cp 16',
                             f'time {round(elapsed)}',
                             f'nodes {nodes}',
                             f'nps {nps}',

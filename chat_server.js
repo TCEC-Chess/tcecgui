@@ -21,10 +21,8 @@ server.listen(port, () => {
 });
 
 let chess,
-    voting = {}, //indexed by fen, supports 1-2 clients
+    voting = {}; //indexed by fen, supports 1-2 clients
     count = 1; //remove this
-//    fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
-//    votes = {c2c4: count, b1c3: 1, e2e4: 3, a2a4: 4};
 
 /**
  * Load chess-wasm
@@ -85,7 +83,8 @@ server.on('connection', async socket => {
         await load_wasm();
 
     socket.on('data', chunk => {
-	// FIX: handle 2 messages in one packet or incomplete packets, error can triggered by "go movetime 100" for example
+	// CHECK THIS: FIX: handle 2 messages in one packet or incomplete packets:
+	// Error can triggered by "go movetime 100" for example. Could use same method as chat_engine.read_votes does.
         LS('data');
         let data, text;
         try {
@@ -98,7 +97,6 @@ server.on('connection', async socket => {
             return;
         }
 
-        //let voting = data.voting;
         if (data.voting != undefined) {
 	    if (data.voting) {
 		voting[data.fen] = {
@@ -112,25 +110,7 @@ server.on('connection', async socket => {
 		LS("deleted voting");
 	    }
 	    nodeServer.setVotingStatus(data);
-            //if (voting) {
-            //    fen = voting;
-            //    votes = {};
-	    //    ips = {};
-            //}
-            //else {
-            //    let best_move = data.best_move;
-            //    if (best_move) {
-            //        LS(best_move);
-            //        let result = chess.moveUci(best_move, frc, true);
-            //        LS(result);
-            //        if (result.piece) {
-            //            fen = chess.fen();
-            //            chess.undo();
-            //        }
-            //    }
-            //}
         }
-        //LS(`Data received from client: ${text} => fen=${fen}`);
 	LS(`Data received from client: ${text}`);
     });
 
