@@ -3507,8 +3507,8 @@ function update_pgn(section, data, extras, reset_moves) {
     }
 
     // 5) clock
-    if (section == 'live' && last_move) {
-        let who = 1 - last_move.ply % 2;
+    if (section == 'live' && (last_move || new_game)) {
+        let who = new_game ? 0 : 1 - last_move.ply % 2;
         if (!new_game)
             players[who].time = 0;
         start_clock(who, finished, pgn.elapsed || 0);

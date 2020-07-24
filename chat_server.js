@@ -43,18 +43,16 @@ function vote(data)
     }
     let entry = voting[data.fen],
 	move = data.move;
-    //LS('vote, entry=' + JSON.stringify(entry));
-    //chess.load(data.fen);
-    //let result = chess.moveUci(move, frc, true);
-    //LS(result);
+    LS('entry: ' + JSON.stringify(entry.votes) + ' ' + JSON.stringify(entry.byIP));
     if (!(move in entry.votes)) {
 	entry.votes[move] = 0;
     }
     if (data.ip in entry.byIP) {
 	if (entry.byIP[data.ip] == move) {
-	    LS("Same move as earlier");
+	    LS("Same move as earlier: " + move);
 	    return;
 	}
+	LS(`Reduce vote: ${entry.byIP[data.ip]} by ${data.ip}`);
 	entry.votes[entry.byIP[data.ip]]--;
     }
     entry.votes[move]++;
@@ -64,6 +62,7 @@ function vote(data)
         votes: Object.entries(entry.votes),
     });
     LS(`Sending data: ${msg}.`);
+    LS('---');
     entry.socket.write(msg.length.toString().padStart(4, " ") + msg);
 };
 

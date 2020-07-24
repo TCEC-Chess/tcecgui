@@ -1374,6 +1374,8 @@ class XBoard {
      */
     initialise() {
         let controls2 = {...CONTROLS};
+	let d = new Date(); // CHECK THIS
+	this.timestamp = d.getTime();
         if (this.main_manual) {
             delete controls2.lock;
             controls2.cube = 'Change view';
@@ -1582,7 +1584,12 @@ class XBoard {
 	if (this.main) { // CHECK THIS: no doubt a lot improvement needed
             let previousFen = this.moves.length ? this.moves[this.moves.length-1].fen : 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
             let uci = this.chess.ucify(move);
-            socket.emit('vote', {fen: previousFen, move: uci});
+	    let d = new Date(),
+		timestamp = d.getTime();
+	    if (timestamp - this.timestamp > 1200) {
+		socket.emit('vote', {fen: previousFen, move: uci, time: timestamp});
+	    }
+	    this.timestamp = timestamp;
 	    this.arrow(3, move);
 	} else {
             this.set_fen(fen, true);
