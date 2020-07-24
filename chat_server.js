@@ -41,6 +41,10 @@ function vote(data)
 	LS('Not found');
 	return;
     }
+    if (!data.time) {
+	LS('Old GUI, no voting');
+	return;
+    }
     let entry = voting[data.fen],
 	move = data.move;
     LS('entry: ' + JSON.stringify(entry.votes) + ' ' + JSON.stringify(entry.byIP));
