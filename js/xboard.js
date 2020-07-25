@@ -1584,7 +1584,7 @@ class XBoard {
             let previousFen = this.moves.length ? this.moves[this.moves.length-1].fen : this.start_fen;
             let uci = this.chess.ucify(move);
 	    let timestamp = Now(true);
-	    if (timestamp - this.timestamp > 1200) {
+	    if (timestamp - this.timestamp > 1.2) {
 		socket.emit('vote', {fen: previousFen, move: uci, time: timestamp});
 	    }
 	    this.timestamp = timestamp;
