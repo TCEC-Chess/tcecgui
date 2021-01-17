@@ -55,6 +55,7 @@ function startup_config() {
             a: 0,
             // grid of 2 columns
             _a1: 2,
+            'TCEC_19.pdf': 'articles/TCEC_19.pdf',
             'TCEC_18.pdf': 'articles/TCEC_18.pdf',
             'TCEC_17.pdf': 'articles/TCEC_17.pdf',
             'TCEC_16.pdf': 'articles/TCEC_16.pdf',
@@ -106,7 +107,7 @@ function startup_config() {
         '13|Stockfish',
         '12|Stockfish',
         '11|Stockfish',
-        '10|Houdini',
+        '10|Komodo',
         '9|Stockfish',
         '8|Komodo',
         '7|Komodo',
