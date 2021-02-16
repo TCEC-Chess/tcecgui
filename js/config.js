@@ -46,6 +46,7 @@ function startup_config() {
     LINKS = {
         'articles': {
             '_ext': '.pdf',
+            'Super Final 20 by GM Sadler.pdf': 'articles/Sufi_20_-_Sadler.pdf',
             'Super Final 19 by GM Sadler.pdf': 'articles/Sufi_19_-_Sadler.pdf',
             'Super Final 18 by GM Sadler.pdf': 'articles/Sufi_18_-_Sadler.pdf',
             'Super Final 17 by GM Sadler.pdf': 'articles/Sufi_17_-_Sadler.pdf',
