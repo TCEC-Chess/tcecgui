@@ -56,6 +56,7 @@ function startup_config() {
             'a': 0,
             // grid of 2 columns
             '_a1': 2,
+            'TCEC_20.pdf': 'articles/TCEC_20.pdf',
             'TCEC_19.pdf': 'articles/TCEC_19.pdf',
             'TCEC_18.pdf': 'articles/TCEC_18.pdf',
             'TCEC_17.pdf': 'articles/TCEC_17.pdf',
