@@ -73,6 +73,7 @@ function startup_config() {
             // again
             'b': 0,
             '_b1': 2,
+            'TCEC_Cup_8.pdf': 'http://tcec-chess.com/articles/TCEC_Cup_8.pdf',
             'TCEC_Cup_7.pdf': 'http://tcec-chess.com/articles/TCEC_Cup_7.pdf',
             'TCEC_Cup_6.pdf': 'http://tcec-chess.com/articles/TCEC_Cup_6.pdf',
             'TCEC_Cup_5.pdf': 'http://tcec-chess.com/articles/TCEC_Cup_5.pdf',
