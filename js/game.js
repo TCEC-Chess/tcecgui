@@ -204,10 +204,10 @@ let ANALYSIS_URLS = {
     ],
     // decisive head 2 head
     DECISIVES = {
-        '0-1|0-1': 16,                  // busted
-        '0-1|1-0': 5,                   // double win
+        '0-1|0-1': 16,                  // double win, fka busted
+        '0-1|1-0': 5,                   // double kill, fka double win
         '0-1|1/2-1/2': 3,               // win + draw
-        '1-0|1-0': 16,                  // busted
+        '1-0|1-0': 16,                  // double win, fka busted
         '1-0|1/2-1/2': 3,               // win + draw
         '1/2-1/2|1/2-1/2': 8,           // double draw
     },
@@ -353,11 +353,10 @@ let ANALYSIS_URLS = {
     shake_animation,
     STATS_TITLES = {
         '{Win} & {draw}': 'winner = 1.5-0.5',
-        'busted_openings': 'result = 1-1 with a win + loss',
+        'double_wins': 'result = 1-1 with a win + loss', // fka busted_openings
         'decisive_openings': 'winner = 2-0 or 1.5-0.5',
         'double_draws': 'result = 1-1 with 2 draws',
-        'double_wins': 'winner = 2-0',
-        'reverse_kills': 'winner = 2-0',
+        'double_kills': 'winner = 2-0',                  // fka double wins
         'reverses': 'engine A vs B, then engine B vs A',
     },
     table_data = {
@@ -2699,10 +2698,10 @@ function calculate_event_stats(section, rows) {
     }
 
     // 3) encounters
-    let busted = 0,
+    let double_wins = 0, // fka busted
         decisives = 0,
         double_draws = 0,
-        double_wins = 0,
+        double_kills = 0, // fka double_wins
         num_half = (num_engine * (num_engine - 1)) / 2,
         num_pair = 0,
         num_round = Ceil(length / num_half / 2),
@@ -2719,10 +2718,10 @@ function calculate_event_stats(section, rows) {
                 if (!next)
                     continue;
                 let decisive = DECISIVES[[curr[0], next[0]].sort().join('|')];
-                busted += !!(decisive & 16);
+                double_wins += !!(decisive & 16);
                 decisives += (decisive & 1);
                 double_draws += !!(decisive & 8);
-                double_wins += !!(decisive & 4);
+                double_kills += !!(decisive & 4);
                 win_draws += !!(decisive & 2);
                 num_pair ++;
 
@@ -2737,8 +2736,7 @@ function calculate_event_stats(section, rows) {
     // 4) result object
     let stats = event_stats[section],
         [end_date, end_time] = FromTimestamp(stats._end),
-        [start_date, start_time] = FromTimestamp(start),
-        kill_text = Y['reverse_kills']? 'reverse_kills': 'double_wins';
+        [start_date, start_time] = FromTimestamp(start);
 
     let dico = {
         //
@@ -2752,10 +2750,10 @@ function calculate_event_stats(section, rows) {
         //
         'reverses': num_pair,
         'decisive_openings': create_seek(decisives, num_pair, 'dec=01'),
-        [kill_text]: create_seek(double_wins, num_pair, 'dec=05'),
+        'double_kills': create_seek(double_kills, num_pair, 'dec=05'), // fka double_wins
         'double_draws': create_seek(double_draws, num_pair, 'dec=08'),
         '{Win} & {draw}': create_seek(win_draws, num_pair, 'dec=03'),
-        'busted_openings': create_seek(busted, num_pair, 'dec=16'),
+        'double_wins': create_seek(double_wins, num_pair, 'dec=16'), // fka busted_openings
         //
         'average_moves': games? Round(moves / games): '-',
         'min_moves': create_game_link(section, min_moves[1], '', 2, (min_moves[0] < Infinity)? min_moves[0]: '-'),
@@ -5997,10 +5995,6 @@ function change_setting_game(name, value) {
         break;
     case 'moves_left':
         Class(CacheId('movesleft'), 'hidden', !value);
-        break;
-    case 'reverse_kills':
-        calculate_event_stats(section);
-        update_table(section, 'stats');
         break;
     case 'rows_per_page':
         update_tab = true;
