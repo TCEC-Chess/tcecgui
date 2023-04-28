@@ -2204,7 +2204,6 @@ function prepare_settings() {
             'log_pv': [ON_OFF, 1, 'use livelog pv'],
             'popup_right_click': [ON_OFF, 1, 'right click on elements for a popup menu'],
             'reload_missing': [ON_OFF, 1],
-            'reverse_kills': [ON_OFF, 0],
             'rows_per_page': [[10, 20, 50, 100, 1000], 10],
             'scroll_inertia': option_number(0.95, 0, 0.99, 0.01),
             'wheel_adjust': option_number(63, 0, 240),
