@@ -1712,6 +1712,7 @@ pre,
 /* svg */
 .svg {
     height: 1em;
+    display: block;
 }
 svg.down {
     transition: transform 0.2s;
