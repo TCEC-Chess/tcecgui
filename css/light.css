@@ -1467,6 +1467,7 @@ hsub {
 .area {
     flex: 1;
     width: 100%;
+    z-index: 100;
 }
 #bottom > vert {
     margin: 2px;
