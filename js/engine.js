@@ -876,6 +876,11 @@ function show_popup(name, show, {
     if (!adjust && overlay != undefined)
         S(CacheId('overlay'), show && overlay);
 
+    if (!adjust && is_modal) {
+        let node2 = CacheId('modal2');
+        Style(node2, [['display', show? 'block': 'none']]);
+    }
+
     if (show || adjust) {
         let px = 0,
             py = 0,

@@ -1143,6 +1143,9 @@ function show_modal(show, text, title, name) {
 
     Style(node, [['opacity', show? 1: 0]]);
 
+    let node2 = CacheId('modal2');
+    Style(node2, [['display', show? 'block': 'none']]);
+
     if (show) {
         add_timeout('pad', gamepad_modal, 300);
         set_modal_events();
