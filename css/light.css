@@ -577,7 +577,7 @@ input.multi2 {
     width: 100%;
 }
 .xnote {
-    font-family: consolas;
+    font-family: consolas, monospace;
     font-size: 0.3em;
     left: 0;
     pointer-events: none;
@@ -937,7 +937,7 @@ hsub {
     color: #07f;
 }
 .mono {
-    font-family: consolas;
+    font-family: consolas, monospace;
     font-size: large;
     text-align: left;
 }
@@ -1233,7 +1233,7 @@ hsub {
     outline: 0;
 }
 #live-log {
-    font-family: consolas;
+    font-family: consolas, monospace;
     font-size: 12px;
     max-height: 80vh;
     width: 100%;
@@ -1585,7 +1585,7 @@ hsub {
     background: rgba(0, 0, 0, 0.8);
     bottom: 0;
     color: #0d0;
-    font-family: consolas;
+    font-family: consolas, monospace;
     font-size: 14px;
     padding: 1em;
     position: fixed;
