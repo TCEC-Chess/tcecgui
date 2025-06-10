@@ -2519,6 +2519,7 @@ function startup() {
         'pol': 'polski',
         'rus': 'русский',
         'ukr': 'українська',
+        'chi': '中文',
         'zzz': '...',
     };
 
