@@ -61,7 +61,7 @@ let BEGIN_ZEROES = {
     },
     charts = {},
     DEFAULT_SCALES = {},
-    EVAL_CLAMP = 128,
+    EVAL_CLAMP = 512,
     first_num = -1,
     FormatAxis = value => format_unit(value),
     FormatEval = value => value? value.toFixed(2): 0,
