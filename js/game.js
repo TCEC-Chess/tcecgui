@@ -2888,6 +2888,13 @@ function create_bracket(section, data) {
         reverses = Assign({}, ...matches.map(item =>
             ({[`${item[1]['name']}|${item[0]['name']}`]: [item[1]['origscore'], item[0]['origscore']]})
         )),
+        // a match is decided once the event table lists it with a winner; results hold live scores
+        winners = Assign({}, ...Keys(data['EventTable'] || {}).map(key => {
+            let row = data['EventTable'][key],
+                names = (row['Engines'] || '').split(' v ');
+            return (row['Winner'] && names.length == 2)?
+                {[`${names[0]}|${names[1]}`]: row['Winner'], [`${names[1]}|${names[0]}`]: row['Winner']}: {};
+        })),
         teams = data['teams'],
         num_team = teams.length,
         prev_finished = true,
@@ -2926,22 +2933,22 @@ function create_bracket(section, data) {
                 result = [];
 
             if (team) {
-                // get the real scores + check if a game has finished
+                // get the real scores + check if the match is decided
                 let key = `${team[0].name}|${team[1].name}`,
-                    exist = forwards[key] || reverses[key];
-                if (exist) {
-                    if (result[0] != undefined && result[1] != undefined)
-                        finished = true;
+                    exist = forwards[key] || reverses[key],
+                    winner = winners[key];
+                if (exist)
                     result = exist;
-                }
+                if (winner)
+                    finished = true;
 
                 team.forEach((item, id) => {
                     let class_ = '',
                         seed = item.seed,
                         short = get_short_name(item.name);
 
-                    if (result[0] != result[1])
-                        class_ = (item.winner && result[id] > result[1 - id])? ' win': ' loss';
+                    if (finished)
+                        class_ = (item.name == winner)? ' win': ' loss';
 
                     names[id] = [
                         class_,
